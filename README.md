@@ -1,6 +1,7 @@
 # SignaLens
 
 **一个面向投研场景的快速信息分流浏览器插件。**
+![Uploading image.png…]()
 
 SignaLens 的目标非常简单：
 
