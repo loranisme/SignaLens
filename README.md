@@ -1,5 +1,5 @@
 <img width="1536" height="1024" alt="image" src="https://github.com/user-attachments/assets/d3298ca7-ebad-4af5-8fd5-4cec5110655f" />
-# SignaLens
+# SignaLens #
 
 **一个面向投研场景的快速信息分流浏览器插件。**
 
