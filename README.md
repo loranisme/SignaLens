@@ -1,77 +1,634 @@
 # SignaLens
 
-**投研信息分流浏览器插件**：把一段文字或一份文档交给 SignaLens，它结合你的研究方向，返回 `RESEARCH`、`KEEP` 或 `SKIP`。
+**一个面向投研场景的快速信息分流浏览器插件。**
 
-> 当前版本是需要在本机启动 API 的开源 MVP，已在 Chrome 本地开发模式验证。它尚未上架浏览器商店，也没有面向所有人可直接使用的托管服务。
+SignaLens 的目标非常简单：
 
-## 它做什么
+> **帮助研究人员快速判断一段信息是否值得继续投入研究时间。**
 
-| 结果 | 含义 |
-| --- | --- |
-| `RESEARCH` | 现在值得投入额外时间核查或继续研究。 |
-| `KEEP` | 有相关性或潜在价值，先保留，暂时不用深入。 |
-| `SKIP` | 对当前研究范围的边际价值较低。 |
+用户可以提交一段文字，或者上传一份文档。SignaLens 会结合用户设置的研究方向、关注公司和投资期限，快速返回以下三个结果之一：
 
-- **输入**：粘贴文本，或上传单个 `.txt`、`.md`、`.pdf`、`.docx`、`.doc` 文件，文件上限 20 MB。默认评估整份文档中可提取的文字。扫描 PDF 可以通过 Tesseract OCR 提取文字；图表和图片的含义不在当前判断范围内。
-- **Research Context**：填写 Research Areas（研究领域）或 Watchlist（关注公司/代码），并选择 Investment Horizon（投资期限）。这些信息是判断相关性的上下文，不是自动关注、联网跟踪或投资组合功能。
-- **输出**：固定三档、Jev 模型把握度和一条简短说明。把握度表示模型输出分布的倾向，**不是校准后的判对概率**。
-- **超长内容**：估算超过约 12,000 token 时拒绝给出决定；PDF 可选页码，DOCX 可选章节。不会静默截断或自动总结后再判断。
-- **错误处理**：空输入、无效文件、OCR 失败、服务或模型错误会显示错误，不会伪造 `SKIP`。
+* `RESEARCH`
+* `KEEP`
+* `SKIP`
 
-侧边栏是唯一的用户界面。当前版本不会自动抓网页、做深度研究、生成研报、给出买卖建议或交易。
+SignaLens 不是 Deep Research Agent。
 
-## 本地运行（已验证环境：macOS + Chrome）
+它不会自动搜索资料，不会生成完整研报，不会构建投资观点，也不会给出买卖建议。
 
-需要 Python 3.11+、[uv](https://docs.astral.sh/uv/)、Chrome，以及你自己的 **TypeSafe Jev API key**。Jev 是外部服务；本仓库开源的是插件、提取与分流调用代码，**不包含 Jev 模型或免费 API 额度**。
+它只负责一件事：
+
+> **在你真正开始深入研究之前，先判断这条信息值不值得继续看。**
+
+---
+
+## 为什么做 SignaLens
+
+投研工作中真正稀缺的往往不是信息，而是注意力。
+
+研究人员每天可能需要处理大量内容，例如：
+
+* 券商研报
+* 行业新闻
+* 公司公告
+* 财报与电话会纪要
+* 专家访谈
+* 产业链信息
+* 投资观点
+* 技术文章
+* 各类 PDF 或 Word 研究材料
+
+问题在于：
+
+> 并不是所有信息都值得继续花 20 分钟、30 分钟甚至几个小时深入研究。
+
+传统流程通常是：
+
+```text
+大量信息
+  ↓
+人工逐条阅读
+  ↓
+判断是否值得继续研究
+```
+
+SignaLens 希望在中间加入一个非常轻量的决策层：
+
+```text
+投研信息
+  ↓
+SignaLens
+  ↓
+RESEARCH / KEEP / SKIP
+```
+
+它的核心设计原则是：
+
+> **先判断什么值得研究，再花时间研究。**
+
+---
+
+## 三种结果
+
+### RESEARCH
+
+表示：
+
+> 当前值得继续投入时间核查、阅读或研究。
+
+常见情况包括：
+
+* 可能影响当前行业判断
+* 可能影响关注公司的核心逻辑
+* 出现新的产业链变化
+* 存在值得验证的重要不确定性
+* 信息中包含明确的增量线索
+
+`RESEARCH` 不代表这条信息已经被验证为真实。
+
+对于未经证实、但如果成立会产生较大影响的信息，SignaLens 仍可能返回 `RESEARCH`。
+
+这里的含义只是：
+
+> **值得进一步核查。**
+
+---
+
+### KEEP
+
+表示：
+
+> 信息与当前研究有关，也可能具有价值，但现在暂时没有必要继续投入更多研究时间。
+
+常见情况包括：
+
+* 信息与研究方向相关
+* 当前影响尚不明确
+* 时点还比较早
+* 缺少进一步研究所需的细节
+* 暂时没有明确的下一步研究问题
+
+这类信息可以先保留，之后根据新信息重新判断。
+
+---
+
+### SKIP
+
+表示：
+
+> 当前继续投入研究时间的边际价值较低。
+
+常见情况包括：
+
+* 与当前研究方向关系较弱
+* 信息过于泛化
+* 没有明确增量
+* 只是重复已有观点
+* 对当前研究期限没有明显价值
+
+---
+
+## Research Context
+
+SignaLens 并不是单纯判断：
+
+> “这是不是一条重要新闻？”
+
+它判断的是：
+
+> **“对于当前这个研究者而言，这条信息值不值得继续研究？”**
+
+因此用户需要设置一个非常简单的 Research Context。
+
+目前包括：
+
+* Research Areas：研究领域
+* Watchlist：关注公司或股票代码
+* Investment Horizon：研究时间范围
+
+例如：
+
+```text
+Research Areas
+- Semiconductors
+- AI Infrastructure
+- Optical Networking
+
+Watchlist
+- NVDA
+- AVGO
+- LITE
+
+Investment Horizon
+- 6–24 months
+```
+
+同一条信息，在不同 Research Context 下可能得到不同判断。
+
+例如，一条关于 AI 光通信产业链的消息：
+
+* 对半导体研究员可能是 `RESEARCH`
+* 对医疗行业研究员可能是 `SKIP`
+
+因此 SignaLens 的核心判断可以理解为：
+
+```text
+信息
++
+用户研究背景
+=
+当前是否值得继续研究
+```
+
+---
+
+## 当前支持的输入
+
+SignaLens 当前支持：
+
+* 直接粘贴文本
+* `.txt`
+* `.md`
+* `.pdf`
+* `.docx`
+* `.doc`
+
+单个文件最大支持 20 MB。
+
+对于普通 PDF 和 Word 文件，系统会直接提取其中的文字。
+
+对于扫描版 PDF，可以通过 Tesseract OCR 提取文字。
+
+当前版本只基于可提取的文本内容进行判断。
+
+暂时不会理解：
+
+* 图表
+* 图片
+* 流程图
+* 财务模型截图
+* 其他视觉信息
+
+如果输入内容估算超过约 12,000 tokens，系统会要求用户缩小评估范围。
+
+SignaLens 不会：
+
+* 静默截断长文档
+* 自动总结后再判断
+* 自动忽略部分内容
+
+对于 PDF 可以选择页码范围。
+
+对于 DOCX 可以选择特定章节。
+
+---
+
+## 浏览器插件
+
+SignaLens 当前采用 Chrome Side Panel 作为主要用户界面。
+
+基本使用流程：
+
+```text
+粘贴文字或上传文档
+        ↓
+     Evaluate
+        ↓
+RESEARCH / KEEP / SKIP
+```
+
+结果界面保持极简，例如：
+
+```text
+RESEARCH
+
+模型把握度：84%
+
+这条线索可能影响当前研究判断，
+值得进一步核查。
+```
+
+或者：
+
+```text
+KEEP
+
+模型把握度：72%
+
+与当前研究相关，
+但暂时无需投入更多时间。
+```
+
+或者：
+
+```text
+SKIP
+
+模型把握度：91%
+
+基于当前研究范围，
+继续阅读的边际价值较低。
+```
+
+当前版本不会提供：
+
+* 聊天界面
+* 自动 Deep Research
+* 自动搜索
+* 多 Agent 工作流
+* 长篇分析报告
+
+---
+
+## 工作原理
+
+整体架构非常简单：
+
+```text
+Chrome Side Panel
+        ↓
+本地 API
+        ↓
+文本提取
+        ↓
+Research Context
+        ↓
+TypeSafe Jev
+        ↓
+RESEARCH / KEEP / SKIP
+```
+
+Jev 在 SignaLens 中承担的是：
+
+> **Decision Engine**
+
+而不是 Research Agent。
+
+它的任务不是生成复杂研究报告，而是在一个非常有限的 Action Space 中快速完成分流判断。
+
+---
+
+## 模型把握度
+
+SignaLens 会显示 Jev 返回的模型把握度。
+
+需要注意：
+
+> **模型把握度不是“判断正确的概率”。**
+
+例如：
+
+```text
+模型把握度：84%
+```
+
+并不代表：
+
+> 这次判断有 84% 的概率是正确的。
+
+它表示的是模型在 `RESEARCH / KEEP / SKIP` 三个选项之间，本次输出分布的明确程度。
+
+在没有经过独立真实数据校准之前，SignaLens 不会把这个数字解释成真实准确率。
+
+---
+
+## 本地运行
+
+当前版本是一个需要本机运行 API 的开源 MVP。
+
+已验证环境：
+
+* macOS
+* Chrome
+* Python 3.11+
+* uv
+* TypeSafe Jev API Key
+
+首先克隆仓库：
 
 ```bash
 git clone https://github.com/loranisme/SignaLens.git
 cd SignaLens
+```
+
+安装依赖：
+
+```bash
 uv sync
-bash scripts/setup_ocr_macos.sh  # 需要扫描 PDF 的 OCR 时运行
+```
+
+如果需要支持扫描 PDF OCR：
+
+```bash
+bash scripts/setup_ocr_macos.sh
+```
+
+启动本地服务：
+
+```bash
 bash scripts/run_local.sh
 ```
 
-`run_local.sh` 会在终端隐藏输入 API key。不要把 key 粘贴到插件、Issue 或提交中。服务重启后需要重新输入。API 只监听 `127.0.0.1:8765`，终端要保持运行；`http://127.0.0.1:8765/api/health` 可检查服务状态。
+启动时需要输入自己的 TypeSafe Jev API Key。
 
-随后打开 Chrome 的 `chrome://extensions`，开启**开发者模式**，点击**加载已解压的扩展程序**，选择仓库内的 `extension/` 文件夹。点击工具栏中的 SignaLens 图标打开侧边栏，设置 Research Context 后提交文字或文件。Edge 的实际安装与交互尚未验收。
+API Key：
 
-普通文本 PDF 和 DOCX 使用项目依赖提取文字；旧版 `.doc` 在 macOS 上依赖系统 `textutil`。`setup_ocr_macos.sh` 使用 Homebrew 安装 Tesseract，并校验中文简体 OCR 数据的 SHA-256。当前仅对少量合成 `.doc` 和扫描 PDF 做过功能检查，复杂文件的保真度仍需验证。
+* 不应该写进插件代码
+* 不应该提交到 GitHub
+* 不应该发到 Issue
+* 不会由启动脚本保存到文件
 
-## 目前效果（2026-09-20）
-
-以下数字来自**实施者自拟、自己标注的合成材料**。测试集刻意平衡三档，并不能代表真实信息流中的正确率；尤其不能据此宣称产品已达到真实场景 **90% 准确率**。
-
-| 测试 | 首轮与预设标签一致 | 覆盖与说明 |
-| --- | ---: | --- |
-| v1 新文本诊断 | 42/48（87.5%） | 中文、英文、西班牙文、日文；4 组 Research Context。6 条 `KEEP` 判为 `RESEARCH`。 |
-| v2 新文本封存集 | 48/48（100%） | 四种语言、4 组新 Context；修改文本规则前冻结，标签仍由同一人编写。 |
-| v2 PDF/Word 交叉回归 | 14/16（87.5%） | 文件文字 16/16 完整提取；内容复用了 v2 文本，不能加到 48 条独立样本里。 |
-| v3 新 PDF/Word 封存集 | 22/24（91.7%） | 四种语言、2 组新 Context、三档、PDF 与 Word；文字 24/24 完整提取，24/24 返回三档。两条保险 Context 下的西语/日语 `SKIP` 误判。 |
-
-v3 文件集在本机脚本到本地 API 的请求耗时为 **P50 348 ms、P95 892 ms**，包含文件提取与 Jev 调用；这不是插件用户操作的端到端时间，也不是高并发或长期稳定性证明。成本尚未测量。Chrome 侧边栏的文字、DOCX、扫描 PDF 和 Context 保存做过手工检查；Edge 尚未检查。
-
-完整口径、逐条记录、冻结哈希及失败分析见[多语言评测报告](docs/multilingual-evaluation-2026-09-20.md)、[机器可读结果](eval/synthetic_2026-09-20/summary.json)与[合成测试数据](eval/synthetic_2026-09-20/README.md)。正式的 90% 验收仍需自然来源信息、独立研究员标签和按语言、文件格式、Context 分组的封存测试集。
-
-## 架构与隐私
+本地 API 默认运行在：
 
 ```text
-Chrome 侧边栏 → 本机 API（文字提取） → TypeSafe Jev → RESEARCH / KEEP / SKIP
+http://127.0.0.1:8765
 ```
 
-扩展权限仅包括 `sidePanel`、`storage` 和本机 `http://127.0.0.1:8765/*` 的主机访问。它不读取当前网页、不注入内容脚本、不访问浏览历史。Research Context 保存在浏览器本地存储中；API key 在本机服务进程的环境变量中，脚本不会写入文件。提交的原文会发送给 **TypeSafe Jev** 判断，请只提交你有权交由该服务处理的材料。
+可以通过：
 
-本机 API 的来源限制与速率限制面向单人本地使用；它不是可直接部署给公众的多用户服务。公开分发仍需完成托管、身份验证、密钥与费用管理、权限审查和真实用户验收。
+```text
+http://127.0.0.1:8765/api/health
+```
 
-## 开发与复现
+检查服务状态。
+
+---
+
+## 安装 Chrome 插件
+
+打开：
+
+```text
+chrome://extensions
+```
+
+然后：
+
+1. 开启 Developer Mode
+2. 点击 Load unpacked
+3. 选择仓库中的 `extension/` 文件夹
+4. 点击浏览器工具栏中的 SignaLens 图标
+5. 打开 Side Panel
+6. 设置 Research Context
+7. 粘贴文字或上传文件
+8. 点击 Evaluate
+
+当前版本已经在 Chrome 本地开发模式中验证。
+
+Edge 尚未完成正式验收。
+
+---
+
+## 当前状态
+
+SignaLens 目前仍然是一个实验性质的开源 MVP。
+
+截至 2026-09-20，目前已经完成：
+
+* Chrome Side Panel
+* 文本输入
+* PDF 输入
+* Word 输入
+* OCR 支持
+* Research Context
+* Jev 三分类决策
+* 输入校验
+* 响应校验
+* 错误处理
+* 本地 API
+* 自动化测试
+* 多语言合成数据评测
+
+---
+
+## 当前测试结果
+
+目前的测试主要基于实施者自行构造并标注的合成样本。
+
+| 测试                | 与预设标签一致 |
+| ----------------- | ------: |
+| v1 新文本测试          | 42 / 48 |
+| v2 新文本封存集         | 48 / 48 |
+| v2 PDF / Word 回归  | 14 / 16 |
+| v3 PDF / Word 封存集 | 22 / 24 |
+
+v3 文件测试中，本地脚本到本地 API 的请求耗时为：
+
+```text
+P50：348 ms
+P95：892 ms
+```
+
+该时间包含：
+
+* 文件文字提取
+* Jev 调用
+
+但不代表：
+
+* 浏览器用户完整操作耗时
+* 高并发性能
+* 长期稳定性
+
+---
+
+## 关于当前测试结果
+
+上述测试数据全部来自：
+
+> **实施者自行设计并自行标注的合成材料。**
+
+因此这些结果只能说明：
+
+> 当前实现已经能够按照预期流程完成基本的三档判断。
+
+不能据此声称：
+
+> SignaLens 在真实投研环境中已经达到 90% 或更高准确率。
+
+正式验证仍然需要：
+
+* 真实来源的投研材料
+* 独立研究人员标注
+* 自然类别比例
+* 不同 Research Context
+* 中文和英文分别测试
+* 不同文件格式分别测试
+* 独立封存测试集
+
+详细评测材料可以查看：
+
+```text
+docs/multilingual-evaluation-2026-09-20.md
+```
+
+以及：
+
+```text
+eval/synthetic_2026-09-20/
+```
+
+和：
+
+```text
+eval/README.md
+```
+
+---
+
+## 隐私
+
+Research Context 保存在浏览器本地。
+
+Jev API Key 只保存在本机 API 服务进程中。
+
+插件当前不会：
+
+* 自动读取浏览历史
+* 自动读取当前网页
+* 注入网页内容
+* 自动跟踪 Watchlist
+* 自动上传本地其他文件
+
+但是：
+
+> 用户主动提交给 SignaLens 的文字内容会发送给 TypeSafe Jev 进行判断。
+
+因此请只提交你有权交由该服务处理的内容。
+
+---
+
+## SignaLens 不做什么
+
+SignaLens 当前明确不做：
+
+* Deep Research Agent
+* 自动联网搜索
+* 自动扩展研究资料
+* 自动生成完整研报
+* 自动构建 Investment Thesis
+* 股票买卖建议
+* Portfolio Management
+* Trading
+* Multi-Agent Workflow
+* 自动 Financial Modeling
+
+这些并不是“未来一定要补上的缺失功能”。
+
+其中很多是 SignaLens 当前产品设计中刻意排除的范围。
+
+SignaLens 希望保持一个非常明确的 Single-Purpose：
+
+```text
+Information
+    ↓
+SignaLens
+    ↓
+RESEARCH / KEEP / SKIP
+```
+
+---
+
+## 开发与测试
+
+运行自动化测试：
 
 ```bash
 uv run pytest -q
-uv run python eval/score.py --gold /path/to/gold.jsonl --predictions /path/to/predictions.jsonl --output /path/to/report.json
 ```
 
-当前 20 项自动化测试通过，主要覆盖三档响应校验、文件提取、错误状态和 API 来源检查。自动化测试使用模拟模型响应，不能证明真实研究价值。评测输入格式与正式验收建议见 [eval/README.md](eval/README.md)。
+运行评测：
 
-## 许可
+```bash
+uv run python eval/score.py \
+  --gold /path/to/gold.jsonl \
+  --predictions /path/to/predictions.jsonl \
+  --output /path/to/report.json
+```
 
-本仓库代码和自拟合成测试材料按 [MIT License](LICENSE) 开源。TypeSafe Jev、Tesseract 及其他依赖各自遵循其服务条款或许可证。
+当前自动化测试主要覆盖：
+
+* 三档响应校验
+* 文件提取
+* 错误状态
+* API 来源检查
+
+自动化测试使用模拟模型响应。
+
+因此：
+
+> 自动化测试通过不能证明 SignaLens 的真实 Research Value。
+
+---
+
+## 核心设计理念
+
+SignaLens 不希望成为另一个 AI Analyst。
+
+它更接近一个：
+
+> **Research Attention Filter**
+
+它想解决的问题不是：
+
+> “AI 能不能替我把这篇研报研究完？”
+
+而是：
+
+> **“在我花时间研究之前，这个东西到底值不值得继续看？”**
+
+因此 SignaLens 想优化的是：
+
+```text
+Information Overload
+        ↓
+Research Triage
+        ↓
+Better Attention Allocation
+```
+
+## License
+
+本项目采用 MIT License。
+
+TypeSafe Jev、Tesseract 以及其他第三方依赖分别遵循其各自的服务条款或许可证。
