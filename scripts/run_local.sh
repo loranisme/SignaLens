@@ -23,4 +23,3 @@ export TYPESAFE_API_KEY
 export PYTHONPATH="$project_root/backend"
 printf 'Starting SignaLens API on 127.0.0.1:8765. The key remains in this process only.\n'
 exec uv run uvicorn signalens.main:app --host 127.0.0.1 --port 8765 --no-access-log
-

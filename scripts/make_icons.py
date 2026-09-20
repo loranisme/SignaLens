@@ -19,4 +19,3 @@ for size in (16, 48, 128):
     draw.line((inset + diameter - stroke, inset + diameter - stroke,
                round(size * scale * 0.84), round(size * scale * 0.84)), fill="#0b7565", width=stroke)
     canvas.resize((size, size), Image.Resampling.LANCZOS).save(root / f"icon{size}.png")
-

@@ -31,4 +31,3 @@ if [[ "$actual_sha" != "$expected_sha" ]]; then
 fi
 install -m 0644 "$scratch_file" "$tessdata_dir/chi_sim.traineddata"
 printf 'Installed chi_sim OCR language data from tesseract-ocr/tessdata_fast.\n'
-
