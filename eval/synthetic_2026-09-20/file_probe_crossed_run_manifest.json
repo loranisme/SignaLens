@@ -1,0 +1,6 @@
+{
+  "started_at_utc": "2026-09-20T14:43:49.639673+00:00",
+  "completed_at_utc": "2026-09-20T14:44:25.000711+00:00",
+  "n_probes": 16,
+  "purpose": "crossed_file_extraction_and_transport_regression_not_independent_quality_validation"
+}

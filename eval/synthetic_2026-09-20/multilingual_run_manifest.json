@@ -1,0 +1,9 @@
+{
+  "gold_sha256": "c8bff055e09a2e865293c472e9abcb8b9016be46783a77df587c4c9a2a218d0e",
+  "started_at_utc": "2026-09-20T14:32:48.084788+00:00",
+  "completed_at_utc": "2026-09-20T14:34:33.939481+00:00",
+  "n_cases": 48,
+  "source_type": "self_authored_synthetic",
+  "purpose": "independent_multilingual_context_diagnostic",
+  "labels_frozen_before_first_provider_call": true
+}

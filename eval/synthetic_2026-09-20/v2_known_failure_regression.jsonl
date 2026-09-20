@@ -1,0 +1,6 @@
+{"case_id": "multi-05", "confidence_score": 0.95, "decision": "KEEP", "http_status": 200, "latency_ms": 292, "model_version": "jev-1.13.0", "rubric_version": "triage-2026-09-20-v2"}
+{"case_id": "multi-08", "confidence_score": 0.92, "decision": "KEEP", "http_status": 200, "latency_ms": 347, "model_version": "jev-1.13.0", "rubric_version": "triage-2026-09-20-v2"}
+{"case_id": "multi-11", "confidence_score": 0.99, "decision": "KEEP", "http_status": 200, "latency_ms": 348, "model_version": "jev-1.13.0", "rubric_version": "triage-2026-09-20-v2"}
+{"case_id": "multi-29", "confidence_score": 0.99, "decision": "KEEP", "http_status": 200, "latency_ms": 254, "model_version": "jev-1.13.0", "rubric_version": "triage-2026-09-20-v2"}
+{"case_id": "multi-35", "confidence_score": 0.9, "decision": "KEEP", "http_status": 200, "latency_ms": 278, "model_version": "jev-1.13.0", "rubric_version": "triage-2026-09-20-v2"}
+{"case_id": "multi-44", "confidence_score": 0.99, "decision": "KEEP", "http_status": 200, "latency_ms": 300, "model_version": "jev-1.13.0", "rubric_version": "triage-2026-09-20-v2"}

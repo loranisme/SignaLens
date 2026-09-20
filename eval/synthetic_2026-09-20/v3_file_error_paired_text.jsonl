@@ -1,0 +1,2 @@
+{"case_id": "filehold-18", "confidence_score": 0.84, "decision": "RESEARCH", "error_code": null, "http_status": 200, "latency_ms": 353, "rubric_version": "triage-2026-09-20-v3"}
+{"case_id": "filehold-24", "confidence_score": 0.16, "decision": "KEEP", "error_code": null, "http_status": 200, "latency_ms": 686, "rubric_version": "triage-2026-09-20-v3"}

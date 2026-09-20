@@ -1,0 +1,13 @@
+{
+  "source_case_id": "syn-12",
+  "source_gold": "RESEARCH",
+  "fixture_sha256": "cfee84c5a8eb0eae62553301e671271e9cfebd71ecc966c7807317f3031de9a7",
+  "http_status": 200,
+  "decision": "RESEARCH",
+  "confidence_score": 0.98,
+  "rubric_version": "triage-2026-09-20-v3",
+  "evaluated_scope": "whole_document_text",
+  "error_code": null,
+  "latency_ms": 854,
+  "purpose": "targeted_long_document_aggregation_regression_not_independent_quality"
+}

@@ -1,0 +1,98 @@
+[
+  {
+    "case_id": "hold-01",
+    "language": "zh",
+    "context_id": "solar",
+    "gold": "RESEARCH",
+    "format": "docx",
+    "filename": "hold-01.docx",
+    "sha256": "fe03cb343ce332a240590db3d11f04e25ae677981142bf92e27b2cf4c0728545",
+    "extraction_contains_original_without_whitespace": true,
+    "extracted_scope": "whole_document_text",
+    "extracted_character_count": 56
+  },
+  {
+    "case_id": "hold-02",
+    "language": "zh",
+    "context_id": "solar",
+    "gold": "KEEP",
+    "format": "pdf",
+    "filename": "hold-02.pdf",
+    "sha256": "a3d2a94512b8257c7a33fcd9b5022fb6ac8ceca61a686d9c535784527e2a47db",
+    "extraction_contains_original_without_whitespace": true,
+    "extracted_scope": "whole_document_text",
+    "extracted_character_count": 53
+  },
+  {
+    "case_id": "hold-13",
+    "language": "en",
+    "context_id": "solar",
+    "gold": "RESEARCH",
+    "format": "docx",
+    "filename": "hold-13.docx",
+    "sha256": "c8294967ee4cabf86af5a0f871ef5ae5a93c5781e0ef9b5f796a9698db8e8588",
+    "extraction_contains_original_without_whitespace": true,
+    "extracted_scope": "whole_document_text",
+    "extracted_character_count": 153
+  },
+  {
+    "case_id": "hold-14",
+    "language": "en",
+    "context_id": "solar",
+    "gold": "KEEP",
+    "format": "pdf",
+    "filename": "hold-14.pdf",
+    "sha256": "38bd0b9a34b562f55777fe04c92c6633cda3d90c474146ecc1aa578f5fd1e19a",
+    "extraction_contains_original_without_whitespace": true,
+    "extracted_scope": "whole_document_text",
+    "extracted_character_count": 126
+  },
+  {
+    "case_id": "hold-25",
+    "language": "es",
+    "context_id": "solar",
+    "gold": "RESEARCH",
+    "format": "docx",
+    "filename": "hold-25.docx",
+    "sha256": "b0f757a43e8649a69f161c30b6727942e7f6b9ab3574bad076c1bc9774034ca8",
+    "extraction_contains_original_without_whitespace": true,
+    "extracted_scope": "whole_document_text",
+    "extracted_character_count": 163
+  },
+  {
+    "case_id": "hold-26",
+    "language": "es",
+    "context_id": "solar",
+    "gold": "KEEP",
+    "format": "pdf",
+    "filename": "hold-26.pdf",
+    "sha256": "f3b9947582dc2d0bd974332665156ddca189071bbcf91a8d60cf17f091e14a48",
+    "extraction_contains_original_without_whitespace": true,
+    "extracted_scope": "whole_document_text",
+    "extracted_character_count": 148
+  },
+  {
+    "case_id": "hold-37",
+    "language": "ja",
+    "context_id": "solar",
+    "gold": "RESEARCH",
+    "format": "docx",
+    "filename": "hold-37.docx",
+    "sha256": "c710d5620bea6d5a3d1beed10240e5c8eef1280100d77d6a718d821a92ac12e6",
+    "extraction_contains_original_without_whitespace": true,
+    "extracted_scope": "whole_document_text",
+    "extracted_character_count": 67
+  },
+  {
+    "case_id": "hold-38",
+    "language": "ja",
+    "context_id": "solar",
+    "gold": "KEEP",
+    "format": "pdf",
+    "filename": "hold-38.pdf",
+    "sha256": "3368ca3a2a77d32d6ed5daf8daeaa95caf73105c14b6a80da8dd34623cd8a2b1",
+    "extraction_contains_original_without_whitespace": true,
+    "extracted_scope": "whole_document_text",
+    "extracted_character_count": 58
+  }
+]

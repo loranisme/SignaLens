@@ -1,0 +1,9 @@
+{
+  "gold_sha256": "e9cfe75807f3da087c9b60b93bcd2d5397f0cd9f02e9bac09a4db1b513376f09",
+  "started_at_utc": "2026-09-20T14:39:29.517818+00:00",
+  "completed_at_utc": "2026-09-20T14:41:15.418960+00:00",
+  "n_cases": 48,
+  "source_type": "self_authored_synthetic",
+  "purpose": "first_pass_multilingual_v2_holdout",
+  "labels_frozen_before_rubric_edit": true
+}

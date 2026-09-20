@@ -1,0 +1,178 @@
+[
+  {
+    "case_id": "hold-01",
+    "language": "zh",
+    "context_id": "solar",
+    "gold": "RESEARCH",
+    "format": "pdf",
+    "filename": "hold-01.pdf",
+    "sha256": "2fd9a4c1db6bc8dade6fbb5cbab9d38883373c6e6968ea3acc7f0a8ed37d08e5",
+    "extraction_contains_original_without_whitespace": true,
+    "extracted_scope": "whole_document_text"
+  },
+  {
+    "case_id": "hold-02",
+    "language": "zh",
+    "context_id": "solar",
+    "gold": "KEEP",
+    "format": "docx",
+    "filename": "hold-02.docx",
+    "sha256": "62f7e4b81fa48d39138a3d12c2aafcb7f0f0f87e44723e42b7f23b52f82914e9",
+    "extraction_contains_original_without_whitespace": true,
+    "extracted_scope": "whole_document_text"
+  },
+  {
+    "case_id": "hold-04",
+    "language": "zh",
+    "context_id": "bank",
+    "gold": "RESEARCH",
+    "format": "docx",
+    "filename": "hold-04.docx",
+    "sha256": "d9f17bace2e8ee019dcc264eb15c993abc454fcd44238c86edadd5001e0bf3b1",
+    "extraction_contains_original_without_whitespace": true,
+    "extracted_scope": "whole_document_text"
+  },
+  {
+    "case_id": "hold-05",
+    "language": "zh",
+    "context_id": "bank",
+    "gold": "KEEP",
+    "format": "pdf",
+    "filename": "hold-05.pdf",
+    "sha256": "a8182014609b6ef90697f426b05e9ea98983eb626732d041e723701c14b191e8",
+    "extraction_contains_original_without_whitespace": true,
+    "extracted_scope": "whole_document_text"
+  },
+  {
+    "case_id": "hold-16",
+    "language": "en",
+    "context_id": "bank",
+    "gold": "RESEARCH",
+    "format": "pdf",
+    "filename": "hold-16.pdf",
+    "sha256": "58ab30a673ba717ebce24b0df528475cb70c4e6cad1ed375c6aeef0ba6fb4a8d",
+    "extraction_contains_original_without_whitespace": true,
+    "extracted_scope": "whole_document_text"
+  },
+  {
+    "case_id": "hold-17",
+    "language": "en",
+    "context_id": "bank",
+    "gold": "KEEP",
+    "format": "docx",
+    "filename": "hold-17.docx",
+    "sha256": "fa9bc3d283280c930ef6ba82701635f6cbfba32b20077d02c9463191012a1ff8",
+    "extraction_contains_original_without_whitespace": true,
+    "extracted_scope": "whole_document_text"
+  },
+  {
+    "case_id": "hold-19",
+    "language": "en",
+    "context_id": "shipping",
+    "gold": "RESEARCH",
+    "format": "docx",
+    "filename": "hold-19.docx",
+    "sha256": "c5ffe9c3d23bfabb19168d749c19e6c16114980e56278484d4d79c30ae0b0218",
+    "extraction_contains_original_without_whitespace": true,
+    "extracted_scope": "whole_document_text"
+  },
+  {
+    "case_id": "hold-20",
+    "language": "en",
+    "context_id": "shipping",
+    "gold": "KEEP",
+    "format": "pdf",
+    "filename": "hold-20.pdf",
+    "sha256": "5502aa262a227f60d84e1dc306abb81526684dd57131112dafbe8a710cf9b675",
+    "extraction_contains_original_without_whitespace": true,
+    "extracted_scope": "whole_document_text"
+  },
+  {
+    "case_id": "hold-31",
+    "language": "es",
+    "context_id": "shipping",
+    "gold": "RESEARCH",
+    "format": "pdf",
+    "filename": "hold-31.pdf",
+    "sha256": "e7c62ac17cbb5bba90496b3fe45a42195ef34fae3bd4570f5d4fb7e68fa13d2e",
+    "extraction_contains_original_without_whitespace": true,
+    "extracted_scope": "whole_document_text"
+  },
+  {
+    "case_id": "hold-32",
+    "language": "es",
+    "context_id": "shipping",
+    "gold": "KEEP",
+    "format": "docx",
+    "filename": "hold-32.docx",
+    "sha256": "95a55a77e69cb58608ae254cd45c2fd73da0f84e630a2c7f8926d4a13461498c",
+    "extraction_contains_original_without_whitespace": true,
+    "extracted_scope": "whole_document_text"
+  },
+  {
+    "case_id": "hold-34",
+    "language": "es",
+    "context_id": "devices",
+    "gold": "RESEARCH",
+    "format": "docx",
+    "filename": "hold-34.docx",
+    "sha256": "e9eb09c4bc6e48692cd5e8f6981ee1208c8e1f90c386ba8701b6970bedb49baa",
+    "extraction_contains_original_without_whitespace": true,
+    "extracted_scope": "whole_document_text"
+  },
+  {
+    "case_id": "hold-35",
+    "language": "es",
+    "context_id": "devices",
+    "gold": "KEEP",
+    "format": "pdf",
+    "filename": "hold-35.pdf",
+    "sha256": "432478a1a093bb99e10331a6b12086bef8659c88588b0df225fe96ec3444a566",
+    "extraction_contains_original_without_whitespace": true,
+    "extracted_scope": "whole_document_text"
+  },
+  {
+    "case_id": "hold-46",
+    "language": "ja",
+    "context_id": "devices",
+    "gold": "RESEARCH",
+    "format": "pdf",
+    "filename": "hold-46.pdf",
+    "sha256": "625e4868a1434970677e38d8546d2d12f7475c42a1c12cd981304e2c1a63189d",
+    "extraction_contains_original_without_whitespace": true,
+    "extracted_scope": "whole_document_text"
+  },
+  {
+    "case_id": "hold-47",
+    "language": "ja",
+    "context_id": "devices",
+    "gold": "KEEP",
+    "format": "docx",
+    "filename": "hold-47.docx",
+    "sha256": "527b7dfacc6d01649f5cc03ba3b2d367a461bc81be69cd0ed24875eecceff707",
+    "extraction_contains_original_without_whitespace": true,
+    "extracted_scope": "whole_document_text"
+  },
+  {
+    "case_id": "hold-37",
+    "language": "ja",
+    "context_id": "solar",
+    "gold": "RESEARCH",
+    "format": "docx",
+    "filename": "hold-37.docx",
+    "sha256": "a3f37b11aec92d86979a3ce720dc27a57404382232894ed85f7283af4aa36462",
+    "extraction_contains_original_without_whitespace": true,
+    "extracted_scope": "whole_document_text"
+  },
+  {
+    "case_id": "hold-38",
+    "language": "ja",
+    "context_id": "solar",
+    "gold": "KEEP",
+    "format": "pdf",
+    "filename": "hold-38.pdf",
+    "sha256": "c40f897df70a0ee8ac5f02f9034cf9327ee07409f0214190b4c01695a8ea69ba",
+    "extraction_contains_original_without_whitespace": true,
+    "extracted_scope": "whole_document_text"
+  }
+]

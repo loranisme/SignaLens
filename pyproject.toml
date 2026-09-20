@@ -1,0 +1,20 @@
+[project]
+name = "signalens-mvp"
+version = "0.1.0"
+description = "SignaLens browser-extension triage API"
+requires-python = ">=3.11"
+dependencies = [
+  "fastapi>=0.116,<1",
+  "uvicorn>=0.35,<1",
+  "python-multipart>=0.0.20,<1",
+  "httpx>=0.28,<1",
+  "pymupdf>=1.26,<2",
+  "python-docx>=1.2,<2",
+]
+
+[dependency-groups]
+dev = ["pytest>=8,<10", "pytest-asyncio>=1,<2", "reportlab>=4,<5"]
+
+[tool.pytest.ini_options]
+pythonpath = ["backend", "."]
+testpaths = ["tests"]

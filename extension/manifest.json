@@ -1,0 +1,24 @@
+{
+  "manifest_version": 3,
+  "name": "SignaLens",
+  "version": "0.1.0",
+  "description": "Research, keep, or skip investment research information.",
+  "minimum_chrome_version": "114",
+  "action": {
+    "default_title": "打开 SignaLens"
+  },
+  "side_panel": {
+    "default_path": "sidepanel.html"
+  },
+  "background": {
+    "service_worker": "service-worker.js"
+  },
+  "permissions": ["sidePanel", "storage"],
+  "host_permissions": ["http://127.0.0.1:8765/*"],
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  }
+}
+

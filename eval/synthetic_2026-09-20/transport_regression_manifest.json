@@ -1,0 +1,7 @@
+{
+  "gold_sha256": "20cfb7e8c7ec39523af1ae5b287473c48198b02d821de54ff21205235236001a",
+  "started_at_utc": "2026-09-20T14:30:36.422928+00:00",
+  "completed_at_utc": "2026-09-20T14:31:55.837135+00:00",
+  "n_cases": 36,
+  "purpose": "transport_regression_not_independent_accuracy_validation"
+}
