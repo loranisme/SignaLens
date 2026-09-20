@@ -1,6 +1,6 @@
 # SignaLens
 
-**投研信息分流浏览器插件**：把一段文字或一份文档交给 SignaLens，它结合你的研究方向，返回 `RESEARCH`、`KEEP` 或 `SKIP`。旧方案中的名称 ResearchGate 已统一为 **SignaLens**。
+**投研信息分流浏览器插件**：把一段文字或一份文档交给 SignaLens，它结合你的研究方向，返回 `RESEARCH`、`KEEP` 或 `SKIP`。
 
 > 当前版本是需要在本机启动 API 的开源 MVP，已在 Chrome 本地开发模式验证。它尚未上架浏览器商店，也没有面向所有人可直接使用的托管服务。
 
